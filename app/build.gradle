@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+
+        // 添加 plugin maven 库地址
+//        maven {
+//            url 'http://172.0.0.1:8080/repository/public/'
+//        }
+        // 添加本地仓库路径
+        maven {
+            url uri('../repo')
+        }
+    }
+    dependencies {
+        // 添加 plugin 依赖
+        classpath 'com.example.plugin:test:1.0.0'
+    }
+}
+
+plugins {
+    id 'com.android.application'
+//    id 'com.example.plugin'
+}
+
+apply plugin: 'com.example.plugin'
+
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.example.mygradleplugintest"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        disable('AllowBackup', 'GoogleAppIndexingWarning', 'MissingApplicationIcon')
+    }
+}
+
+dependencies {
+}
